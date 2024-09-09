@@ -34,6 +34,12 @@ public class ListUtils {
                 .toList();
     }
 
+    public static List<String> handleIntegerListToStringList(List<Integer> input){
+        return input.stream()
+                .map(item -> String.format("%0" + 6 + "d", item))
+                .toList();
+    }
+
     public static <T> void printList(List<T> input) {
         int count = 1;
         for (T item : input){
