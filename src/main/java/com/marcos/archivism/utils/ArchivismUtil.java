@@ -1,11 +1,15 @@
 package com.marcos.archivism.utils;
 
 
-import java.util.Collections;
+import com.marcos.archivism.model.TerminalDigitItem;
+import com.marcos.archivism.service.TerminalDigitItemService;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ArchivismUtil {
+
+    private static TerminalDigitItemService service = new TerminalDigitItemService();
 
     public static List<String> simpleNumericMethod(List<String> input){
         List<Integer> intList = ListUtils.handleStringListToIntegerList(input);
@@ -13,13 +17,14 @@ public class ArchivismUtil {
         return handleIntegerListToStringList(intList);
     }
 
-    public static List<String> terminalNumericMethod(List<String> input){
-        var reversePairsList = input.stream()
-                .map(ArchivismUtil::handleReversePairs)
+    public static List<String> terminalDigitNumericMethod(List<String> input){
+        List<TerminalDigitItem> terminalDigitItemList = input.stream()
+                .map(TerminalDigitItem::new)
                 .toList();
-        var intList = ListUtils.handleStringListToIntegerList(reversePairsList);
-        var sortedList = ListUtils.sort(intList);
-        return handleIntegerListToStringList(sortedList);
+
+        terminalDigitItemList = service.sortList(terminalDigitItemList);
+
+        return service.toStringList(terminalDigitItemList);
     }
 
     public static List<String>  chronologicalMethod(List<String> input){
