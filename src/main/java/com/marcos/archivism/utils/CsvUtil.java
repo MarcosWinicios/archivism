@@ -84,7 +84,7 @@ public class CsvUtil {
             FileWriter fw = new FileWriter(fileFullName);
             CSVWriter cw = new CSVWriter(fw,
                     ';',//Delimitador
-                    '\'',//Caractere de aspas simples
+                    '\"',//Caractere de aspas simples
                     CSVWriter.NO_ESCAPE_CHARACTER,
                     CSVWriter.DEFAULT_LINE_END);
 
