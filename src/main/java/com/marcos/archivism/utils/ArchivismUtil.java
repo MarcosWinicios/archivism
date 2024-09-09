@@ -3,21 +3,20 @@ package com.marcos.archivism.utils;
 
 import com.marcos.archivism.model.TerminalDigitItem;
 import com.marcos.archivism.service.TerminalDigitItemService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public class ArchivismUtil {
 
-    private static TerminalDigitItemService service = new TerminalDigitItemService();
+    private static final TerminalDigitItemService service = new TerminalDigitItemService();
 
-    public static List<String> simpleNumericMethod(List<String> input){
+    public static List<String> simpleNumericMethod(List<String> input) {
         List<Integer> intList = ListUtils.handleStringListToIntegerList(input);
         ListUtils.sort(intList);
         return handleIntegerListToStringList(intList);
     }
 
-    public static List<String> terminalDigitNumericMethod(List<String> input){
+    public static List<String> terminalDigitNumericMethod(List<String> input) {
         List<TerminalDigitItem> terminalDigitItemList = input.stream()
                 .map(TerminalDigitItem::new)
                 .toList();
@@ -27,31 +26,32 @@ public class ArchivismUtil {
         return service.toStringList(terminalDigitItemList);
     }
 
-    public static List<String>  chronologicalMethod(List<String> input){
+    public static List<String> chronologicalMethod(List<String> input) {
         List<String> ordernedList = simpleNumericMethod(input);
         return ordernedList.stream()
                 .map(item -> addSeparator(item, "/"))
                 .toList();
     }
 
-    public static String addSeparator(String input, String separator){
+    public static String addSeparator(String input, String separator) {
         String[] separatedString = handleStringToPairs(input);
         return String.join(separator, separatedString);
     }
 
-    public static String handleReversePairs(String input){
+    public static String handleReversePairs(String input) {
         String[] separatedString = handleStringToPairs(input);
         return separatedString[0] + separatedString[1] + separatedString[2];
     }
-    public static String[] handleStringToPairs(String input){
+
+    public static String[] handleStringToPairs(String input) {
         String[] result = new String[3];
-        result[0] = input.substring(0,2);
-        result[1] = input.substring(2,4);
-        result[2]= input.substring(4,6);
+        result[0] = input.substring(0, 2);
+        result[1] = input.substring(2, 4);
+        result[2] = input.substring(4, 6);
         return result;
     }
 
-    public static List<String> handleIntegerListToStringList(List<Integer> input){
+    public static List<String> handleIntegerListToStringList(List<Integer> input) {
         return input.stream()
                 .map(item -> String.format("%0" + 6 + "d", item))
                 .toList();

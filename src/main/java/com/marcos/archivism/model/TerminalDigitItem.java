@@ -1,22 +1,28 @@
 package com.marcos.archivism.model;
 
-import com.marcos.archivism.utils.ListUtils;
 import lombok.Data;
 
-import java.util.Comparator;
-import java.util.List;
 import java.util.Objects;
 
 @Data
 public class TerminalDigitItem {
 
-    private Integer value;
+    private String value;
     private Integer referenceValue;
 
     public TerminalDigitItem(String value) {
-        String referenceValue = value.substring(4, 6);
-        this.value = Integer.parseInt(value.replace(".", ""));
+        String referenceValue = value.substring(5, 7);
+        this.value = value.replace(".", "");
         this.referenceValue = Integer.parseInt(referenceValue);
+    }
+
+
+    @Override
+    public String toString() {
+        return "TerminalDigitItem{" +
+                "value='" + value + '\'' +
+                ", referenceValue=" + referenceValue +
+                '}';
     }
 
     @Override
